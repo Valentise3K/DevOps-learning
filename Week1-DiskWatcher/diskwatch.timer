@@ -7,4 +7,4 @@ OnUnitActiveSec=5min
 Unit=diskwatch.service
 
 [Install]
-WantedBy=multi-user. target
+WantedBy=multi-user.target
