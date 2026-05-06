@@ -39,8 +39,8 @@ def check_disk_usage(disk, min_critical, min_warning):
 
 if __name__ == "__main__":
     disk = "/"
-    min_critical = 10  # Minimum absolute free space in percentage
-    min_warning = 20   # Minimum percentage of free space
+    min_critical = 10  
+    min_warning = 20   
 
     result = check_disk_usage(disk, min_critical, min_warning)
     print(result)
