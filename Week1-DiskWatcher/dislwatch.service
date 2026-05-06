@@ -1,0 +1,9 @@
+[Unit]
+Description=Pyhon Script to monitor disk usage and log the results
+
+[Service]
+Type=oneshot
+ExecStart=python3 /opt/diskwatch/diskwatch.py
+
+[Install]
+WantedBy=multi-user.target
