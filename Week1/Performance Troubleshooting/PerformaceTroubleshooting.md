@@ -33,10 +33,10 @@ htop
 ```
 ![Screenshoot of terminal output for the `htop` command used for scenario 1.](./assets/htop_cpu.png)
 
-    Commands didn't show any unusual activity in other parts of the system, so the `stress-ng-cpu` command/process was the only issue causing high CPU utilazation.
+Commands didn't show any unusual activity in other parts of the system, so the `stress-ng-cpu` command/process was the only issue causing high CPU utilazation.
 
 **Root Cause & Conclusion**</br>
-Four ***stress-ng-cpu***, one on each CPU (core), utilized all availbe CPU resources. Recommended to review the processes causing high CPU utilization, identify their purpose and set limits for the CPU resources available to them.
+Four ***stress-ng-cpu*** processes, one on each CPU (core), utilized all availbe CPU resources. Recommended to review the processes causing high CPU utilization, identify their purpose and set limits for the CPU resources available to them.
 
 
 ## Scenarion 2 - Memeory Saturation
