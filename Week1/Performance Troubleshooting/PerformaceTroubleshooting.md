@@ -27,14 +27,14 @@ Steps taken:
 ![Screenshoot of terminal output for the `pidstat` command used for scenario 1.](./assets/pidstat_cpu.png)
 
 5. To confirm that identified performance issue was affecting only CPU, next commands was issued to check other parts of the system:
-```bash
-iostat -xz --pretty 1
-free -m
-sar -n DEV 1
-sar -n TCP,ETCP 1
-htop
-```
-![Screenshoot of terminal output for the `htop` command used for scenario 1.](./assets/htop_cpu.png)
+    ```bash
+    iostat -xz --pretty 1
+    free -m
+    sar -n DEV 1
+    sar -n TCP,ETCP 1
+    htop
+    ```
+    ![Screenshoot of terminal output for the `htop` command used for scenario 1.](./assets/htop_cpu.png)
 
 Commands didn't show any unusual activity in other parts of the system, so the `stress-ng-cpu` command/process was the only issue causing high CPU utilazation.
 
