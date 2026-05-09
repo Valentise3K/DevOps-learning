@@ -1,9 +1,9 @@
+# Performance Troubleshooting
 
 This lab focused on practicing troubleshooting skills, specifically identifying the root cause of system performance degradation using the **USE method**: Utilization, Saturation, and Errors. The lab included three different scenarios. In each scenario, the `stress-ng` utility was used to place load on a specific part of the system.
 
 > [!NOTE]
 > The lab was completed without prior knowledge of which system resource was under stress. Because of that, the overall performance analysis was completed each time using the USE method.
-
 
 ## Scenario 1 - CPU High Utilization
 
@@ -35,12 +35,12 @@ Steps taken:
     sar -n TCP,ETCP 1
     htop
     ```
+
     ![Screenshot of terminal output for the `htop` command used for Scenario 1.](./assets/htop_cpu.png)
 These commands didn't show unusual activity in other parts of the system, so the `stress-ng-cpu` processes were the main cause of high CPU utilization.
 
 **Root Cause & Conclusion**  
 Four ***stress-ng-cpu*** processes, one on each CPU core, utilized almost all available CPU resources. It is recommended to review the processes causing high CPU utilization, identify their purpose, and set CPU resource limits if necessary.
-
 
 ## Scenario 2 - Memory Saturation
 
@@ -71,7 +71,6 @@ Steps taken:
 **Root Cause & Conclusion**  
 Two ***stress-ng-vm*** processes put the system under memory pressure by utilizing most of the available RAM. The kernel was forced to swap out inactive memory pages from RAM to disk to prevent a crash caused by insufficient memory resources. It is recommended to increase RAM resources or limit the memory usage of these processes to prevent memory saturation or an OOM Killer process activation.
 
-
 ## Scenario 3 - Disk High Utilization & Saturation
 
 The `stress-ng` command used for Scenario 3 was:
@@ -89,7 +88,8 @@ Steps taken:
 3. I issued the `vmstat 1` command to get a more detailed look at system utilization. I noticed high activity in the ***I/O*** section, specifically in the ***block output*** column. Additionally, the ***b*** column, which represents processes blocked while waiting for I/O completion, showed 1 to 3 blocked processes. The ***wa*** column in the CPU section showed that 25%-75% of CPU time was spent waiting for outstanding disk I/O requests.
 ![Screenshot of terminal output for the `vmstat` command used for Scenario 3.](./assets/vmstat_disk.png)
 
-4. The information from the previous step suggested disk saturation. To get more detailed information about disk utilization, I issued the `iostat -xz --pretty 1` command. The output showed that the ***sda*** disk was under about 95% utilization, with 65 MB/s of write activity and an average wait time of 683 milliseconds to serve a write request. This information suggests disk saturation caused by some process(es) running on the system.![Screenshot of terminal output for the `iostat` command used for Scenario 3.](./assets/iostat_disk1.png)
+4. The information from the previous step suggested disk saturation. To get more detailed information about disk utilization, I issued the `iostat -xz --pretty 1` command. The output showed that the ***sda*** disk was under about 95% utilization, with 65 MB/s of write activity and an average wait time of 683 milliseconds to serve a write request. This information suggests disk saturation caused by some process(es) running on the system.
+![Screenshot of terminal output for the `iostat` command used for Scenario 3.](./assets/iostat_disk1.png)
 
 5. To identify the process saturating the disk, I issued the `htop` command, moved to the I/O table, and identified two ***stress-ng-hdd*** processes. These processes were generating heavy write activity and saturating disk performance.
 ![Screenshot of terminal output for the `htop` command used for Scenario 3.](./assets/htop_disk.png)
