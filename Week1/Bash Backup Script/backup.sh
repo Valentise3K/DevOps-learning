@@ -78,6 +78,11 @@ req_input_validation() {
     if [[ -d "$destination_dir" ]]; then
         if [[ -w "$destination_dir" ]]; then
             log INFO "Destination directory exists and is writable: $destination_dir"
+
+            # Removing trailing slashes from the destination directory path, for consistency.
+            while [[ "$destination_dir" != "/" && "$destination_dir" == */ ]]; do
+                destination_dir="${destination_dir%/}"
+            done
         else
             log ERROR "Destination directory exists but is not writable: $destination_dir" >&2
             exit 1
